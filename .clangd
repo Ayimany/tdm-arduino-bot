@@ -1,0 +1,21 @@
+CompileFlags:
+  Add: [
+    "-I/home/ayimany/Projects/Software/embedded/arduino/include",
+    "-I/home/ayimany/Projects/Software/embedded/arduino/src",
+    "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/cores/arduino",
+    "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/variants/standard",
+    "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+    "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/libraries/HID/src",
+    "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/libraries/SPI/src",
+    "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+    "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/libraries/Wire/src",
+    "-I/home/ayimany/.local/share/platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include",
+    "-I/home/ayimany/.local/share/platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include-fixed",
+    "-I/home/ayimany/.local/share/platformio/packages/toolchain-atmelavr/avr/include",
+    "-DPLATFORMIO=60113",
+    "-DARDUINO_AVR_UNO",
+    "-DF_CPU=16000000L",
+    "-DARDUINO_ARCH_AVR",
+    "-DARDUINO=10808",
+    "-D__AVR_ATmega328P__"
+  ]
