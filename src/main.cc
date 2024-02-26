@@ -12,7 +12,6 @@ otters::bluetooth_module g_module { g_btconfig }; // NOLINT: INTENTIONAL
 otters::robot            g_robot { g_module };    // NOLINT: INTENTIONAL
 
 auto
-
 setup() -> void {
     g_robot.init();
 }
