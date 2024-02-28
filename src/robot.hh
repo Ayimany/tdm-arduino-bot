@@ -2,6 +2,7 @@
 
 #include "HardwareSerial.h"
 #include "motorcontrol.hh"
+#include "drivetrain.hh"
 #include "srlmod.hh"
 #include <Servo.h>
 
@@ -38,22 +39,22 @@ public:
 
             switch (received) {
             case 'F' :
-                front_right.set(DEFAULT_MOTOR_SPEED);
-                front_left.set(DEFAULT_MOTOR_SPEED);
-                back_left.set(DEFAULT_MOTOR_SPEED);
-                back_right.set(DEFAULT_MOTOR_SPEED);
+                _drivetrain.differential_drive(1.0, 0.0);
                 break;
             case 'B' :
-                front_right.set(-DEFAULT_MOTOR_SPEED);
-                front_left.set(-DEFAULT_MOTOR_SPEED);
-                back_left.set(-DEFAULT_MOTOR_SPEED);
-                back_right.set(-DEFAULT_MOTOR_SPEED);
+                _drivetrain.differential_drive(-1.0, 0.0);
+                break;
+            case 'L' :
+                _drivetrain.differential_drive(0.0, -1.0);
+                break;
+            case 'R' :
+                _drivetrain.differential_drive(0.0, 1.0);
                 break;
             case '0' :
-                front_right.stop();
-                front_left.stop();
-                back_left.stop();
-                back_right.stop();
+                if (!mode_is_auto) {
+                    _drivetrain.stop();
+                }
+
                 break;
             case 'S':
                 servo1.write(FULL_TURN);
@@ -62,10 +63,48 @@ public:
                 servo1.write(0);
                 break;
             case 'C':
-                servo2.write(FULL_TURN);
                 break;
             case 'X':
-                servo2.write(0);
+                mode_is_auto = true;
+                // TODO: Actually integrate sensors
+                // Later tho
+
+                _drivetrain.differential_drive(0.75, 0.0);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, 0.25);
+                delay(1500);
+                _drivetrain.differential_drive(0.55, 0.0);
+                delay(1500);
+                _drivetrain.differential_drive(0.75, 0.25);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, 0.0);
+                delay(500);
+                _drivetrain.differential_drive(-0.75, 0.0);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, 0.0);
+                delay(500);
+                _drivetrain.differential_drive(0.15, 0.0);
+                delay(1500);
+                _drivetrain.differential_drive(0.5, 0.5);
+                delay(1500);
+                _drivetrain.differential_drive(0.2, -0.25);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, 0.5);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, 0.0);
+                delay(500);
+                _drivetrain.differential_drive(0.0, 0.25);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, -0.25);
+                delay(1500);
+                _drivetrain.differential_drive(0.5, 0.0);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, 0.0);
+                delay(500);
+                _drivetrain.differential_drive(-0.5, 0.0);
+                delay(1500);
+                _drivetrain.differential_drive(0.0, 0.0);
+
                 break;
             default :
                 break;
@@ -75,12 +114,11 @@ public:
 
 private:
     bluetooth_module &_comms_module; // NOLINT: INTENTIONAL
-    dc_motor          front_right { 1 };
-    dc_motor          front_left { 2 };
-    dc_motor          back_left { 3 };
-    dc_motor          back_right { 4 };
+    drivetrain _drivetrain { 0.175, 2, 3 };
     Servo servo1;
     Servo servo2;
+    bool mode_is_auto = false;
 };
 
 } // namespace otters
+

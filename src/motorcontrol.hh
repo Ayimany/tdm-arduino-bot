@@ -1,10 +1,10 @@
 #pragma once
 
-#include "math.hh"
 #if ! defined(__AVR__) && defined(PLATFORMIO)
 #    define __AVR__
 #endif
 
+#include "math.hh"
 #include "AFMotor.h"
 
 namespace otters {
@@ -16,8 +16,14 @@ public:
 
     inline auto
     set(double value) -> void {
-        motor.run(value < 0 ? BACKWARD : FORWARD);
+        value = max(-1.0, min(1.0, value));
+
+        motor.run((value * inversion_factor) < 0 ? BACKWARD : FORWARD);
         motor.setSpeed(ftpwm(abs(value)));
+    }
+
+    inline auto set_inverted(bool inverted) -> void {
+        this->inversion_factor = inverted ? -1 : 1;
     }
 
     inline auto
@@ -28,6 +34,8 @@ public:
 
 private:
     AF_DCMotor motor;
+    int8_t inversion_factor = 1;
 };
 
 } // namespace otters
+

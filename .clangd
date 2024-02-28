@@ -1,7 +1,7 @@
 CompileFlags:
   Add: [
-    "-I/home/ayimany/Projects/Software/embedded/arduino/include",
-    "-I/home/ayimany/Projects/Software/embedded/arduino/src",
+    "-I/home/ayimany/Projects/tdm-arduino-bot/arduino/include",
+    "-I/home/ayimany/Projects/tdm-arduino-bot/arduino/src",
     "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/cores/arduino",
     "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/variants/standard",
     "-I/home/ayimany/.local/share/platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
@@ -19,3 +19,4 @@ CompileFlags:
     "-DARDUINO=10808",
     "-D__AVR_ATmega328P__"
   ]
+
